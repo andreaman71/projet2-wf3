@@ -59,7 +59,10 @@ if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastnam
         if(empty($account)){
 
             // Insertion du nouveau compte en BDD
-            $response = $bdd->prepare('INSERT INTO user(user_email, user_password, user_ip, user_date, user_lastname, user_firstname) VALUES(?,?,?,?,?,?)');
+            $response = $bdd->prepare('INSERT INTO user(user_email, user_password, user_ip, user_date, user_lastname, user_firstname, user_key) VALUES(?,?,?,?,?,?,?)');
+
+            // génération d'une clé unique sur 32 caractères en vue création token
+            $key = md5(rand().time().uniqid());
 
             $response->execute(array(
                 $_POST['email'],
@@ -67,11 +70,11 @@ if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastnam
                 $_SERVER['REMOTE_ADDR'], 
                 date('Y-m-d H:i:s'), 
                 $_POST['lastname'], 
-                $_POST['firstname']
+                $_POST['firstname'],
+                $key
             ));
 
-            // génération d'une clé unique sur 32 caractères en vue création token
-            $key = md5(rand().time().uniqid());
+            
 
             // Envoi email de confirmation
             $mail = $_POST['email']; // destinataire du mail
