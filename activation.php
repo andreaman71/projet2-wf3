@@ -6,11 +6,11 @@ if(isset($_GET['account']) && isset($_GET['key'])){
     $cle = $_GET['key'];
 
     if(!filter_var($login, FILTER_VALIDATE_EMAIL)){
-        $errors[]= "Ceci n'est pas une adresse mail!" 
+        $errors[]= "Ceci n'est pas une adresse mail!" ;
     }
 
     if(!mb_strlen($cle) == 32){
-        $errors[]= "Ceci n'est pas une clé de validation! "
+        $errors[]= "Ceci n'est pas une clé de validation! ";
     }
     if(!isset($errors)){
         // Connexion à la base de données
@@ -24,28 +24,33 @@ if(isset($_GET['account']) && isset($_GET['key'])){
         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         // Selection du compte (hypothétique) ayant déjà l'adresse email dans le formulaire
-        $verifyIfExist = $bdd->prepare('SELECT user_key, user_active, user_id FROM user WHERE user_email = ?');
+        $verifyIfExist = $bdd->prepare('SELECT user_key, user_active, id FROM user WHERE user_email = ?');
 
         $verifyIfExist->execute(array(
             $login
         ));
 
         $found = $verifyIfExist->fetch();
-
-        // Si found est vide, c'est que l'utilisateur n'existe pas
+        
+        // Si found n'est pas vide, c'est que l'utilisateur existe
         if(!empty($found)){
 
-            // mise à jour  / activation du  compte en BDD
-            $response = $bdd->prepare('UPDATE user SET user_active = 1 WHERE user_id = ?');
-            $response->execute(array(
-                $found['user_id']
-            ));
-
-            // Si la requête SQL a touchée au moins 1 ligne tout vas bien, sinon erreur
-            if($response->rowCount() > 0){
-                $success = 'Compte activé!';
+            if($found['user_active'] == '1'){
+                $errors[]= "Compte déjà actif!";
             } else {
-                $errors[] = 'Problème lors de l\'activation du compte.';
+
+                // mise à jour  / activation du  compte en BDD
+                $response = $bdd->prepare('UPDATE user SET user_active = 1 WHERE id = ?');
+                $response->execute(array(
+                    $found['id']
+                ));
+
+                // Si la requête SQL a touchée au moins 1 ligne tout vas bien, sinon erreur
+                if($response->rowCount() > 0){
+                    $success = 'Compte activé!';
+                } else {
+                    $errors[] = 'Problème lors de l\'activation du compte.';
+                }
             }
 
         } else {
