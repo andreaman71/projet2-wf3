@@ -30,19 +30,18 @@ if(isset($_GET['account']) && isset($_GET['key'])){
             $login
         ));
 
-        $found = $verifyIfExist->fetchAll(PDO::FETCH_NUM);
-        
+        $found = $verifyIfExist->fetch(PDO::FETCH_NUM);
         // Si found n'est pas vide, c'est que l'utilisateur existe
         if(!empty($found)){
     
-            if($found[0][1] == 1){
+            if($found[1] == 1){
                 $errors[]= "Compte déjà actif!";
             } else {
                 if($cle == $found[0]){
                     // mise à jour  / activation du  compte en BDD
                     $response = $bdd->prepare('UPDATE user SET user_active = 1 WHERE id = ?');
                     $response->execute(array(
-                        $found['id']
+                        $found[2]
                     ));
 
                     // Si la requête SQL a touchée au moins 1 ligne tout vas bien, sinon erreur
