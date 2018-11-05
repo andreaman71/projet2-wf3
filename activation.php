@@ -30,15 +30,15 @@ if(isset($_GET['account']) && isset($_GET['key'])){
             $login
         ));
 
-        $found = $verifyIfExist->fetch();
+        $found = $verifyIfExist->fetchAll(PDO::FETCH_NUM);
         
         // Si found n'est pas vide, c'est que l'utilisateur existe
         if(!empty($found)){
     
-            if($found['user_active'] == '1'){
+            if($found[0][1] == 1){
                 $errors[]= "Compte déjà actif!";
             } else {
-                if($cle == $found['user_key']){
+                if($cle == $found[0]){
                     // mise à jour  / activation du  compte en BDD
                     $response = $bdd->prepare('UPDATE user SET user_active = 1 WHERE id = ?');
                     $response->execute(array(
@@ -79,7 +79,16 @@ if(isset($_GET['account']) && isset($_GET['key'])){
     <?php include('header.php'); ?>
 
     <main class="w-50 m-auto pt-5">
-        <p>Votre compte est activé</p>
+        <?php if(isset($errors)){
+            foreach($errors as $error){
+                echo '<p style="color: red;">' . $error . '</p>'; 
+            }
+        }
+
+        if(isset($success)){
+            echo '<p style ="color: green">' . $success . '</p>';
+        }
+        ?>
     </main>
       
     <!-- Optional JavaScript -->
