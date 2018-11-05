@@ -3,7 +3,7 @@
 require('recaptcha_valid.php');
 
 // Verification de la présence des champs et variable de formulaire
-if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_SERVER['REMOTE_ADDR'])){
+if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['g-recaptcha-response']) && isset($_SERVER['REMOTE_ADDR'])){
     
     //Verification de la validité de l'email 
     if(!filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)){
@@ -145,12 +145,11 @@ if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastnam
                 ?>
             </div>
             <!-- insertion champ recaptcha google avec clé publique -->
-            <div class="g-recaptcha" data-sitekey="6LfJ8HcUAAAAADSATsaou1zeRq7FnkI4K7XPXoUQ">
-                <?php if(isset($errors['recaptcha'])){
-                        echo '<p style="color: red;">' . $errors['recaptcha'] . '</p>'; 
-                    }
-                ?>
-            </div>
+            <div class="g-recaptcha" data-sitekey="6LfJ8HcUAAAAADSATsaou1zeRq7FnkI4K7XPXoUQ"></div>
+            <?php if(isset($errors['recaptcha'])){
+                echo '<p style="color: red;">' . $errors['recaptcha'] . '</p>'; 
+            }
+            ?>
             <button type="submit" class="btn btn-primary">S'inscrire</button>
         </form>
     <?php 
