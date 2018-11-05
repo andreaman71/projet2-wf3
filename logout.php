@@ -20,6 +20,10 @@ unset($_SESSION['account']);
   </head>
   <body>
       <?php include('header.php'); ?>
+
+      <main class="text-center pt-5">
+          <p>Vous êtes bien déconnecté.</p>
+      </main>
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

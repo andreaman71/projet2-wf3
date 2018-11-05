@@ -14,7 +14,7 @@ $response->execute(array(
     $_SESSION['email'],
 ));
 
-$user = $response->fetchAll(PDO::FETCH_ASSOC);
+$user = $response->fetchAll(PDO::FETCH_NUM);
 
 $response->closeCursor();
 
@@ -36,9 +36,8 @@ $response->closeCursor();
 
     <main class="w-75 m-auto">
         <?php 
-            foreach($user as $user_info) {
-                echo '<p>' . $user_info . '</p>';
-            }  
+            
+            echo 
         ?>
     </main>
       

@@ -15,10 +15,10 @@ if (isset($_SESSION['email'])) {
                 <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="inscription.php">Profil</a>
+                <a class="nav-link" href="profil.php">Profil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="login.php">Déconnexion</a>
+                <a class="nav-link" href="logout.php">Déconnexion</a>
             </li>
             </ul>
         </div>

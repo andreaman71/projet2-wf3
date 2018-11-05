@@ -24,7 +24,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $response = $bdd->prepare('SELECT * FROM users WHERE user_email = ? ');
+        $response = $bdd->prepare('SELECT * FROM user WHERE user_email = ? ');
 
         $response->execute(array(
             $_POST['email'],
@@ -43,26 +43,35 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         
                 $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-                $response = $bdd->prepare('SELECT user_password FROM users WHERE user_email = ? ');
+                $response = $bdd->prepare('SELECT user_password FROM user WHERE user_email = ? ');
         
                 $response->execute(array(
                     $_POST['email'],
                 ));
-                
+
+                $hash = $response->fetch(PDO::FETCH_NUM);
+
                 // Si password ok, création session
-                if (password_hash($_POST['password'], PASSWORD_BCRYPT) == $response) {
+                if (password_verify($_POST['password'], $hash[0])) {
                     $success = 'Vous etes bien connecté.';
 
                     session_start();
 
                     $_SESSION['email'] = $_POST['email'];
                 
+                } else {
+                    $errors['password_user'] = 'Le mot de passe ne correspond pas avec l\'email';
                 }
-        
-                $response->closeCursor();
+                
+                            
             
-            }       
+            } else {
+                $errors['email_user'] = 'Cet email ne correspond à aucun compte';
+            }
+                
+            $response->closeCursor();
 
+    } else {
 
     }
 }
@@ -91,20 +100,33 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             <div class="form-group">
                 <input name="email" type="email" class="form-control" placeholder="Votre mail">
             </div>
-            <?php if(isset($errors['email'])) {
+                    <?php 
+                    if(isset($errors['email'])) {
                         echo '<p style="color:red;">' . $errors['email'] . '</p>'; 
+                    }
+                    if (isset($errors['email_user'])) {
+                        echo '<p style="color:red">' . $errors['email_user'] . '</p>';
                     }
                     ?>
             <div class="form-group">
                 <input name="password" type="password" class="form-control" placeholder="Votre mot de passe">
 
-                    <?php if(isset($errors['password'])) {
+                    <?php 
+                    if(isset($errors['password'])) {
                         echo '<p style="color:red;">' . $errors['password'] . '</p>';     
+                    }
+                    if (isset($errors['password_user'])) {
+                        echo '<p style="color:red">' . $errors['password_user'] . '</p>';
                     }
                     ?>
             </div>
             <button type="submit" class="btn btn-primary">Connexion</button>
         </form>
+            <?php
+                if (isset($success)) {
+                    echo '<p style="color:green">' . $success . '</p>';
+                }
+            ?>
     </main>
       
     <!-- Optional JavaScript -->
