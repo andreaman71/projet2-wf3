@@ -8,13 +8,13 @@ try {
     die('Erreur de connexion à la bdd');
 }
 
-$response = $bdd->prepare('SELECT user_firstname, user_lastname, user_date FROM user WHERE user_email = ? ');
+$response = $bdd->prepare('SELECT user_email, user_firstname, user_lastname, user_date FROM user WHERE user_email = ? ');
 
 $response->execute(array(
     $_SESSION['email'],
 ));
 
-$user = $response->fetchAll(PDO::FETCH_NUM);
+$users = $response->fetchAll(PDO::FETCH_NUM);
 
 $response->closeCursor();
 
@@ -35,10 +35,30 @@ $response->closeCursor();
     <?php include('header.php'); ?>
 
     <main class="w-75 m-auto">
-        <?php 
-            
-            echo 
+       <h3 class="mt-5">Mon profil</h3>
+        <table class="mt-5 table">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Date d'inscription</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <?php
+      foreach($users as $user) {
+            echo '<td>' . htmlspecialchars($user[0]) . '</td>';
+            echo '<td>' . htmlspecialchars($user[1]) . '</td>';
+            echo '<td>' . htmlspecialchars($user[2]) . '</td>';
+            echo '<td>' . htmlspecialchars($user[3]) . '</td>';
+        }
         ?>
+    </tr>
+  </tbody>
+</table>
+
     </main>
       
     <!-- Optional JavaScript -->
