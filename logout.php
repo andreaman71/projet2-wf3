@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+session_destroy();
+
+unset($_SESSION['account']);
+
+?>
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -10,28 +19,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
   </head>
   <body>
-    <?php include('header.php'); ?>
-
-    <main class="w-50 m-auto pt-5">
-        <form method="POST" action="inscription.php">
-            <div class="form-group">
-                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Votre mail">
-            </div>
-            <div class="form-group">
-                <input type="firstname" class="form-control" aria-describedby="emailHelp" placeholder="Votre prénom">
-            </div>
-            <div class="form-group">
-                <input type="lastname" class="form-control" aria-describedby="emailHelp" placeholder="Votre nom">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Votre mot de passe">
-            </div>
-            <div class="form-group">
-                <input type="password-confirm" class="form-control" placeholder="Votre mot de passe (confirmation)">
-            </div>
-            <button type="submit" class="btn btn-primary">S'inscrire</button>
-        </form>
-    </main>
+      <?php include('header.php'); ?>
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

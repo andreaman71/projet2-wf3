@@ -1,3 +1,25 @@
+<?php
+
+session_start();
+
+try {
+    $bdd = new PDO('mysql:host=localhost;dbname=projet2;charset=utf8', 'root', '');
+} catch(Exception $e){
+    die('Erreur de connexion à la bdd');
+}
+
+$response = $bdd->prepare('SELECT user_firstname, user_lastname, user_date FROM user WHERE user_email = ? ');
+
+$response->execute(array(
+    $_SESSION['email'],
+));
+
+$user = $response->fetchAll(PDO::FETCH_ASSOC);
+
+$response->closeCursor();
+
+?>
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -12,25 +34,12 @@
   <body>
     <?php include('header.php'); ?>
 
-    <main class="w-50 m-auto pt-5">
-        <form method="POST" action="inscription.php">
-            <div class="form-group">
-                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Votre mail">
-            </div>
-            <div class="form-group">
-                <input type="firstname" class="form-control" aria-describedby="emailHelp" placeholder="Votre prénom">
-            </div>
-            <div class="form-group">
-                <input type="lastname" class="form-control" aria-describedby="emailHelp" placeholder="Votre nom">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Votre mot de passe">
-            </div>
-            <div class="form-group">
-                <input type="password-confirm" class="form-control" placeholder="Votre mot de passe (confirmation)">
-            </div>
-            <button type="submit" class="btn btn-primary">S'inscrire</button>
-        </form>
+    <main class="w-75 m-auto">
+        <?php 
+            foreach($user as $user_info) {
+                echo '<p>' . $user_info . '</p>';
+            }  
+        ?>
     </main>
       
     <!-- Optional JavaScript -->
