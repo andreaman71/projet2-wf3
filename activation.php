@@ -34,22 +34,25 @@ if(isset($_GET['account']) && isset($_GET['key'])){
         
         // Si found n'est pas vide, c'est que l'utilisateur existe
         if(!empty($found)){
-
+    
             if($found['user_active'] == '1'){
                 $errors[]= "Compte déjà actif!";
             } else {
+                if($cle == $found['user_key']){
+                    // mise à jour  / activation du  compte en BDD
+                    $response = $bdd->prepare('UPDATE user SET user_active = 1 WHERE id = ?');
+                    $response->execute(array(
+                        $found['id']
+                    ));
 
-                // mise à jour  / activation du  compte en BDD
-                $response = $bdd->prepare('UPDATE user SET user_active = 1 WHERE id = ?');
-                $response->execute(array(
-                    $found['id']
-                ));
-
-                // Si la requête SQL a touchée au moins 1 ligne tout vas bien, sinon erreur
-                if($response->rowCount() > 0){
-                    $success = 'Compte activé!';
-                } else {
-                    $errors[] = 'Problème lors de l\'activation du compte.';
+                    // Si la requête SQL a touchée au moins 1 ligne tout vas bien, sinon erreur
+                    if($response->rowCount() > 0){
+                        $success = 'Compte activé!';
+                    } else {
+                        $errors[] = 'Problème lors de l\'activation du compte.';
+                    }
+                }else {
+                    $errors[] = 'Erreur ! Votre compte ne peut être activé...';
                 }
             }
 
