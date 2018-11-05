@@ -96,7 +96,11 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     <?php include('header.php'); ?>
 
     <main class="w-50 m-auto pt-5">
-        <form method="POST" action="login.php">
+
+    <?php
+    if (!isset($success)) {
+    ?>
+            <form method="POST" action="login.php">
             <div class="form-group">
                 <input name="email" type="email" class="form-control" placeholder="Votre mail">
             </div>
@@ -121,12 +125,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                     ?>
             </div>
             <button type="submit" class="btn btn-primary">Connexion</button>
-        </form>
-            <?php
-                if (isset($success)) {
-                    echo '<p style="color:green">' . $success . '</p>';
-                }
-            ?>
+        </form>   
+    <?php
+    } else {
+        echo '<p class="text-center" style="color:green">' . $success . '</p>';
+           }
+    ?>
     </main>
       
     <!-- Optional JavaScript -->

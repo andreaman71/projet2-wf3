@@ -70,9 +70,36 @@ if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastnam
                 $_POST['firstname']
             ));
 
+            // génération d'une clé unique sur 32 caractères en vue création token
+            $key = md5(rand().time().uniqid());
+
+            // Envoi email de confirmation
+            $mail = $_POST['email']; // destinataire du mail
+            $crlf = "\r\n";
+            $message_txt = 'Veuillez cliquer sur ce lien http://localhost/projet2-wf3/activation.php?account=' . $_POST['email'] . '&key=' . $key . ' pour activer votre compte';  // contenu du mail en texte simple
+            $message_html = '<html><head></head><body>Veuillez cliquer sur ce lien http://localhost/projet2-wf3/activation.php?account=' . $_POST['email'] . '&key=' . $key . ' pour activer votre compte</body></html>'; // contenu du mail en html
+            $boundary = "-----=".md5(rand());
+            $sujet = "Activation du compte";   // sujet du mail
+            $header = "From: \"Administrateur du site\"<admin@exemple.com>".$crlf;    // expediteur
+            $header.= "Reply-to: \"Administrateur du site\" <admin@exemple.com>".$crlf;   // personne en retour de mail
+            $header.= "MIME-Version: 1.0".$crlf;
+            $header.= "Content-Type: multipart/alternative;".$crlf." boundary=\"$boundary\"".$crlf;
+            $message = $crlf."--".$boundary.$crlf;
+            $message.= "Content-Type: text/plain; charset=\"UTF-8\"".$crlf;
+            $message.= "Content-Transfer-Encoding: 8bit".$crlf;
+            $message.= $crlf.$message_txt.$crlf;
+            $message.= $crlf."--".$boundary.$crlf;
+            $message.= "Content-Type: text/html; charset=\"UTF-8\"".$crlf;
+            $message.= "Content-Transfer-Encoding: 8bit".$crlf;
+            $message.= $crlf.$message_html.$crlf;
+            $message.= $crlf."--".$boundary."--".$crlf;
+            $message.= $crlf."--".$boundary."--".$crlf;
+            mail($mail,$sujet,$message,$header);
+            
+
             // Si la requête SQL a touchée au moins 1 ligne tout vas bien, sinon erreur
             if($response->rowCount() > 0){
-                $success = 'Compte créé !';
+                $success = 'Compte créé ! Vous allez recevoir un email de confirmation pour activer votre compte';
             } else {
                 $errors['other'] = 'Problème lors de la création du compte.';
             }
