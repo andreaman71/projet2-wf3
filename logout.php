@@ -1,8 +1,12 @@
 <?php
 
 session_start();
+session_destroy();
+
+unset($_SESSION['account']);
 
 ?>
+
 <!doctype html>
 <html lang="fr">
   <head>
