@@ -15,6 +15,9 @@ if (isset($_SESSION['email'])) {
                 <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="article.php">Articles <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="profil.php">Profil</a>
             </li>
             <li class="nav-item">
@@ -39,6 +42,9 @@ if (isset($_SESSION['email'])) {
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="article.php">Articles <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="inscription.php">S'inscrire</a>
