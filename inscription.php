@@ -104,13 +104,10 @@ if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastnam
     <?php include('header.php'); ?>
 
     <main class="w-50 m-auto pt-5">
-<<<<<<< HEAD
-=======
     <?php 
     // Si la variable succès n'existe pas on affiche le formulaire. 
     if(!isset($success)){
     ?>
->>>>>>> 3bf24f099f68d8a42cefe62fdea8df3f53c30520
         <form method="POST" action="inscription.php">
             <div class="form-group">
                 <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Votre mail" name="email">
