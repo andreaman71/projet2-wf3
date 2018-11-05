@@ -1,3 +1,23 @@
+<?php
+
+// Vérifier la présence des champs 
+
+if(isset($_POST["email"]) && isset($_POST["password"])){
+    // Vérification des champs
+    if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+        $errors['email'] = 'L\'email n\'est pas valide';
+    }
+    if(!preg_match('#^.{5,300}$#', $_POST['password'])){
+        $errors['password'] = 'Le mot de passe  n\'est pas valide';
+    }
+    
+}
+
+
+?>
+
+
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -15,10 +35,16 @@
     <main class="w-50 m-auto pt-5">
         <form>
             <div class="form-group">
-                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Votre mail">
+                <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Votre mail">
+                <?php if(isset($errors['email'])){
+                    echo '<p style="color:red;">' .$errors['email']. '</p>'; ?>
+                }
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Votre mot de passe">
+                <input name="password" type="password" class="form-control" placeholder="Votre mot de passe">
+                <?php if(isset($errors['password'])){
+                    echo '<p style="color:red;">' .$errors['password']. '</p>'; ?>
+                }
             </div>
             <button type="submit" class="btn btn-primary">Connexion</button>
         </form>
