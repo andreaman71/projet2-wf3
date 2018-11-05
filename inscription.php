@@ -1,4 +1,7 @@
 <?php 
+
+session_start();
+
 // Inclusion du fichier contenant la fonction de vérification du captcha
 require('recaptcha_valid.php');
 
@@ -110,21 +113,21 @@ if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastnam
     ?>
         <form method="POST" action="inscription.php">
             <div class="form-group">
-                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Votre mail" name="email">
+                <input type="email" class="form-control" placeholder="Votre mail" name="email">
                 <?php if(isset($errors['email'])){
                     echo '<p style="color: red;">' . $errors['email'] . '</p>'; 
                 }
                 ?>
             </div>
             <div class="form-group">
-                <input type="firstname" class="form-control" aria-describedby="emailHelp" placeholder="Votre prénom" name="firstname">
+                <input type="firstname" class="form-control" placeholder="Votre prénom" name="firstname">
                 <?php if(isset($errors['firstname'])){
                     echo '<p style="color: red;">' . $errors['firstname'] . '</p>'; 
                 }
                 ?>
             </div>
             <div class="form-group">
-                <input type="lastname" class="form-control" aria-describedby="emailHelp" placeholder="Votre nom" name="lastname">
+                <input type="lastname" class="form-control" placeholder="Votre nom" name="lastname">
                 <?php if(isset($errors['lastname'])){
                     echo '<p style="color: red;">' . $errors['lastname'] . '</p>'; 
                 }
@@ -144,12 +147,16 @@ if(isset($_POST['email']) && isset($_POST['firstname']) && isset($_POST['lastnam
                 }
                 ?>
             </div>
-            <!-- insertion champ recaptcha google avec clé publique -->
-            <div class="g-recaptcha" data-sitekey="6LfJ8HcUAAAAADSATsaou1zeRq7FnkI4K7XPXoUQ"></div>
-            <?php if(isset($errors['recaptcha'])){
-                echo '<p style="color: red;">' . $errors['recaptcha'] . '</p>'; 
-            }
-            ?>
+            
+            <div class="form-group">
+                <!-- insertion champ recaptcha google avec clé publique -->
+                <div class="g-recaptcha" data-sitekey="6LfJ8HcUAAAAADSATsaou1zeRq7FnkI4K7XPXoUQ"></div>
+                <?php if(isset($errors['recaptcha'])){
+                    echo '<p style="color: red;">' . $errors['recaptcha'] . '</p>'; 
+                }
+                ?>                
+            </div>
+
             <button type="submit" class="btn btn-primary">S'inscrire</button>
         </form>
     <?php 

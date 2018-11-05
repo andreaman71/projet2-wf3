@@ -1,8 +1,12 @@
 <?php
 
-// Vérifier la présence des champs 
+// Inclusion du fichier contenant la fonction de vérification du captcha
+require('recaptcha_valid.php');
 
-if (isset($_POST['email']) && isset($_POST['password'])) {
+
+// Vérifier la présence des champs 
+if (isset($_POST['email']) && 
+    isset($_POST['password'])) {
 
     // Vérification des champs
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -14,7 +18,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     
     // Si pas d'erreurs
     if(!isset($errors)) {
-    
+        
         // Requete à la bdd et verif du mail
         try {
             $bdd = new PDO('mysql:host=localhost;dbname=projet2;charset=utf8', 'root', '');
@@ -27,7 +31,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $response = $bdd->prepare('SELECT * FROM user WHERE user_email = ? ');
 
         $response->execute(array(
-            $_POST['email'],
+            $_POST['email']
         ));
 
         $response->closeCursor();
@@ -71,9 +75,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                 
             $response->closeCursor();
 
-    } else {
-
-    }
+    } 
 }
 
 
@@ -91,6 +93,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
   <body>
     <?php include('header.php'); ?>
@@ -112,18 +115,19 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                         echo '<p style="color:red">' . $errors['email_user'] . '</p>';
                     }
                     ?>
-            <div class="form-group">
-                <input name="password" type="password" class="form-control" placeholder="Votre mot de passe">
 
-                    <?php 
-                    if(isset($errors['password'])) {
-                        echo '<p style="color:red;">' . $errors['password'] . '</p>';     
-                    }
-                    if (isset($errors['password_user'])) {
-                        echo '<p style="color:red">' . $errors['password_user'] . '</p>';
-                    }
-                    ?>
+            <div class="form-group">
+                <input name="password" type="password" class="form-control" placeholder="Votre mot de passe">        
             </div>
+                <?php 
+                if(isset($errors['password'])) {
+                    echo '<p style="color:red;">' . $errors['password'] . '</p>';     
+                }
+                if (isset($errors['password_user'])) {
+                    echo '<p style="color:red">' . $errors['password_user'] . '</p>';
+                }
+                ?>
+
             <button type="submit" class="btn btn-primary">Connexion</button>
         </form>   
     <?php
