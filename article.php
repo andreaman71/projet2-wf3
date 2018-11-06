@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 // On déclare ici le nombre d'article à afficher par page au cas où on souhaiterais le modifier rapidement
 $articlePerPage = 10;
 
@@ -50,6 +53,7 @@ $pageMax = ceil($totalArticle/$articlePerPage);
 </head>
 <body>
 <?php include('header.php'); ?>
+<main class="w-50 m-auto pt-5 text-center">
 <h1>Articles</h1>
     <?php
     
@@ -110,6 +114,7 @@ $pageMax = ceil($totalArticle/$articlePerPage);
         echo '<li><a href="article.php?page=' . $pageMax .'">Fin</a></li>';
         ?>
     </ul>
+</main>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

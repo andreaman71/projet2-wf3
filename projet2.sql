@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 06 nov. 2018 à 09:18
+-- Généré le :  mar. 06 nov. 2018 à 14:52
 -- Version du serveur :  10.1.36-MariaDB
 -- Version de PHP :  7.2.10
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `projet2`
 --
-CREATE DATABASE IF NOT EXISTS `projet2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `projet2`;
 
 -- --------------------------------------------------------
 
@@ -109,26 +107,30 @@ CREATE TABLE `user` (
   `user_lastname` varchar(100) NOT NULL,
   `user_firstname` varchar(100) NOT NULL,
   `user_key` char(32) NOT NULL,
-  `user_active` int(11) NOT NULL DEFAULT '0'
+  `password_reset_key` char(32) NOT NULL,
+  `user_active` int(11) NOT NULL DEFAULT '0',
+  `user_rank` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `user_ip`, `user_date`, `user_lastname`, `user_firstname`, `user_key`, `user_active`) VALUES
-(0, 'exemple@exemple.fr', '$2y$10$66kFP3/C.NU9Hk6nU6srue.5K8HY1Hmascp2gscG5Zt3FkRJXLLZO', '::1', '2018-11-05 00:00:00', 'Truc', 'Amandine', '', 0),
-(2, 'test3@test.com', '$2y$10$0S7geKGBzaWghYDONUV/g.Zvs58g7TtrtrKZauFQEXb746CetFtYG', '::1', '2018-11-05 00:00:00', 'Truc', 'getyhrhrt', '', 0),
-(3, 'test2@test.fr', '$2y$10$2obMoJHw5OAg/x8CKSu4COLs2wFnlzbDhZpL98FH23He3SLdBHuxi', '::1', '2018-11-05 11:41:42', 'gyrturujty', 'getyhrhrt', '', 0),
-(4, 'trucmachin@test.fr', '$2y$10$PKmXsDbF37WWnRRmIFawnOAeoT1N6a9E8hiSnLx4zCorYL3UzRU4i', '::1', '2018-11-05 11:53:47', 'gyrturujty', 'Amandine', '', 0),
-(5, 'a@a.fr', '$2y$10$RoW4kdtSBGpXwdCwAz7QrOTkf3IUPLK1tlsikksOGi7tQY7SAZ5eC', '::1', '2018-11-05 12:00:42', 'rthtyjty', 'gdfhrthrt', '', 0),
-(6, 'hgfh@rttry.gt', '$2y$10$upb.hZ3P6ZtQHlr02MMoI.ZQQOijAQaBPWTa6SDGAUsWMXVcqQWvO', '127.0.0.1', '2018-11-05 12:15:04', 'ggsd', 'erzer', '', 0),
-(7, 'ttttt@tttt.ttt', '$2y$10$TtAJH2D1Wr8PxvQlENeUFeZ1SmsXYHJSZrZZ7nBad/NYIgyzKlEtS', '127.0.0.1', '2018-11-05 14:10:08', 'laurioz', 'benoit', '', 0),
-(8, 'aaa@aaaa.fr', '$2y$10$YyAaD.Xeh9IjFc99yDVoMOSbvu14BwfJUnjS5MPJ13c2MPQptpADq', '::1', '2018-11-05 14:46:07', 'Truc', 'amandine', '', 1),
-(9, 'bbb@bbb.fr', '$2y$10$VEnjL7cK0eBvQxvhrEH8puk0L7SkJGVq19VhKu0dV55pS4tz21Lg.', '::1', '2018-11-05 15:14:15', 'truc', 'amandine', '', 0),
-(10, 'cccc@cccc.cc', '$2y$10$9G5byHDxSPDF.Bec6lQKVOpDdKnbkkm3zpVgvTAp7WtYmR.rwKjMy', '::1', '2018-11-05 15:20:07', 'gyrturujty', 'Amandine', '4e70631898f427197662a5e95851be93', 1),
-(11, 'dddddd@ddddd.dd', '$2y$10$XtEpw0sIXiGMkCETciB/hOkPwnLFaE0qUMWgLmONjVG7psX7JUyju', '::1', '2018-11-05 15:59:22', 'truc', 'Amandine', '5ea7b4f80b7ee808c3dbb62689fe38d3', 1),
-(12, 'eeeeeee@eeeee.ee', '$2y$10$8W5kb62FkC9eld/.9io1wOtf0o8UbKhCqY9VtCFU9ERBCo7Kj/5LK', '::1', '2018-11-05 16:03:49', 'truc', 'amandine', 'c5ce06069b4e7cc02ad03ffdbc190287', 1);
+INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `user_ip`, `user_date`, `user_lastname`, `user_firstname`, `user_key`, `password_reset_key`, `user_active`, `user_rank`) VALUES
+(0, 'exemple@exemple.fr', '$2y$10$66kFP3/C.NU9Hk6nU6srue.5K8HY1Hmascp2gscG5Zt3FkRJXLLZO', '::1', '2018-11-05 00:00:00', 'Truc', 'Amandine', '', '', 0, 1),
+(2, 'test3@test.com', '$2y$10$0S7geKGBzaWghYDONUV/g.Zvs58g7TtrtrKZauFQEXb746CetFtYG', '::1', '2018-11-05 00:00:00', 'Truc', 'getyhrhrt', '', '', 0, 0),
+(3, 'test2@test.fr', '$2y$10$2obMoJHw5OAg/x8CKSu4COLs2wFnlzbDhZpL98FH23He3SLdBHuxi', '::1', '2018-11-05 11:41:42', 'gyrturujty', 'getyhrhrt', '', '', 0, 0),
+(4, 'trucmachin@test.fr', '$2y$10$PKmXsDbF37WWnRRmIFawnOAeoT1N6a9E8hiSnLx4zCorYL3UzRU4i', '::1', '2018-11-05 11:53:47', 'gyrturujty', 'Amandine', '', '', 0, 0),
+(5, 'a@a.fr', '$2y$10$RoW4kdtSBGpXwdCwAz7QrOTkf3IUPLK1tlsikksOGi7tQY7SAZ5eC', '::1', '2018-11-05 12:00:42', 'rthtyjty', 'gdfhrthrt', '', '', 0, 0),
+(6, 'hgfh@rttry.gt', '$2y$10$upb.hZ3P6ZtQHlr02MMoI.ZQQOijAQaBPWTa6SDGAUsWMXVcqQWvO', '127.0.0.1', '2018-11-05 12:15:04', 'ggsd', 'erzer', '', '', 0, 0),
+(7, 'ttttt@tttt.ttt', '$2y$10$TtAJH2D1Wr8PxvQlENeUFeZ1SmsXYHJSZrZZ7nBad/NYIgyzKlEtS', '127.0.0.1', '2018-11-05 14:10:08', 'laurioz', 'benoit', '', '', 0, 0),
+(8, 'aaa@aaaa.fr', '$2y$10$YyAaD.Xeh9IjFc99yDVoMOSbvu14BwfJUnjS5MPJ13c2MPQptpADq', '::1', '2018-11-05 14:46:07', 'Truc', 'amandine', '', '', 1, 0),
+(9, 'bbb@bbb.fr', '$2y$10$VEnjL7cK0eBvQxvhrEH8puk0L7SkJGVq19VhKu0dV55pS4tz21Lg.', '::1', '2018-11-05 15:14:15', 'truc', 'amandine', '', '', 0, 0),
+(10, 'cccc@cccc.cc', '$2y$10$9G5byHDxSPDF.Bec6lQKVOpDdKnbkkm3zpVgvTAp7WtYmR.rwKjMy', '::1', '2018-11-05 15:20:07', 'gyrturujty', 'Amandine', '4e70631898f427197662a5e95851be93', '', 1, 0),
+(11, 'dddddd@ddddd.dd', '$2y$10$XtEpw0sIXiGMkCETciB/hOkPwnLFaE0qUMWgLmONjVG7psX7JUyju', '::1', '2018-11-05 15:59:22', 'truc', 'Amandine', '5ea7b4f80b7ee808c3dbb62689fe38d3', '', 1, 0),
+(12, 'eeeeeee@eeeee.ee', '$2y$10$8W5kb62FkC9eld/.9io1wOtf0o8UbKhCqY9VtCFU9ERBCo7Kj/5LK', '::1', '2018-11-05 16:03:49', 'truc', 'amandine', 'c5ce06069b4e7cc02ad03ffdbc190287', '', 1, 0),
+(13, 'b@b.b', '$2y$10$i7N3hE5QdOFpPm7GL7QrbO/gToWcy6Y4N52.8qVHOkUGyk0QP9FvO', '::1', '2018-11-06 14:06:03', 'bbb', 'bbb', 'f5c7cc3b721613cdcc6a5ff6e6fdf24e', 'd30d6887a2346688b55a6762f29075ea', 1, 0),
+(14, 'admin@admin.admin', '$2y$10$rVC6PTLKSjy642yUpTpCduR7ZDUNiHteCucI3ciuYEzi/JVryXZO2', '::1', '2018-11-06 14:10:15', 'admin', 'admin', '54f8231281b086b4ca95a180285d6832', '54f8231281b086b4ca95a180285d6832', 1, 1);
 
 --
 -- Index pour les tables déchargées
@@ -161,7 +163,7 @@ ALTER TABLE `article`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Contraintes pour les tables déchargées
