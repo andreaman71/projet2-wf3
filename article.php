@@ -58,7 +58,7 @@ $pageMax = ceil($totalArticle/$articlePerPage);
         echo "<ul>";
         // Extraction de tous les articles avec un foreach
         foreach($articles as $article){
-            echo '<li><strong><a href="article.php?id='.htmlspecialchars($article['article_id']).'">'.htmlspecialchars($article['article_title']).'</a></strong> écrit par <strong>'. htmlspecialchars($article['article_author']) .'</strong></li>';
+            echo '<li><strong><a href="article_content.php?id='.htmlspecialchars($article['article_id']).'">'.htmlspecialchars($article['article_title']).'</a></strong> écrit par <strong>'. htmlspecialchars($article['article_author']) .'</strong></li>';
         }
         echo "</ul>";
     } else {

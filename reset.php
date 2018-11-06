@@ -14,7 +14,7 @@ if(isset($_POST['email'])){
         }
         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $response = $bdd->prepare('SELECT id FROM user WHERE user_email = ? ' );
+        $response = $bdd->prepare('SELECT user_id FROM user WHERE user_email = ? ' );
 
         $response->execute(array(
             $_POST['email']

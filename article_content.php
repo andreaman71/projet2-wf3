@@ -9,7 +9,7 @@ if(!isset($errors)){
     require('bdd.php');
 
     // On récupère les infos de l'article demandé
-    $getArticle = $bdd->prepare('SELECT * FROM article WHERE id = ?');
+    $getArticle = $bdd->prepare('SELECT * FROM article WHERE article_id = ?');
     $getArticle->execute(array($_GET['id']));
     $article = $getArticle->fetch(PDO::FETCH_ASSOC);
     $getArticle->closeCursor();
@@ -35,6 +35,10 @@ if(!isset($errors)){
         .menu li{
             display:inline;
             margin:3px;
+        }
+
+        ul{
+            text-align: center;
         }
     </style>
 </head>
