@@ -10,27 +10,27 @@ try{
 $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Récup de la liste des auteurs
-$authors = $bdd->query('SELECT id, user_lastname, user_firstname FROM user');
+$authors = $bdd->query('SELECT user_id, user_firstname, user_lastname FROM user ORDER BY user_lastname');
 $listeAuthors = $authors->fetchAll();
 
 // Si tous les champs du formulaire sont là
 if(
-    isset($_POST['article_title']) &&
-    isset($_POST['article_content']) &&
-    isset($_POST['article_author']) &&
-    isset($_POST['article_date'])
+    isset($_POST['title']) &&
+    isset($_POST['content']) &&
+    isset($_POST['author']) &&
+    isset($_POST['date'])
 ){
     
     // Bloc vérifications des champs
-    if(!preg_match('#^[a-z\'\- ]{2,100}$#i', $_POST['title'])){
+    if(!preg_match('#^.{2,100}$#', $_POST['title'])){
         $errors['title'] = 'Titre invalide';
     }
 
-    if(!preg_match('#^[a-z\-]{2,20000}$#i', $_POST['content'])){
+    if(!preg_match('#^.{2,20000}$#', $_POST['content'])){
         $errors['content'] = 'Description invalide';
     }
 
-    if(!filter_var(FILTER_VALIDATE_INT)){
+    if(!filter_var($_POST['author'],FILTER_VALIDATE_INT)){
         $errors['author'] = 'Auteur invalide';
     }
 
@@ -105,7 +105,7 @@ if(
             <?php
                 // Pour chaque auteur dans le tableau, on crée une option dans le select
                 foreach($listeAuthors as $author){
-                    echo '<option value="' . $author['id'] . '">' . ucfirst($author['user_lastname']) . ' ' . ucfirst($author['user_firstname']) . '</option>';
+                    echo '<option value="' . $author['user_id'] . '">' . ucfirst($author['user_lastname']) . ' ' . ucfirst($author['user_firstname']) . '</option>';
                 }
             ?>
             </select>
