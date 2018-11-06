@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 06 nov. 2018 à 09:18
+-- Généré le :  mar. 06 nov. 2018 à 09:09
 -- Version du serveur :  10.1.36-MariaDB
 -- Version de PHP :  7.2.10
 
@@ -34,7 +34,7 @@ CREATE TABLE `article` (
   `article_id` int(11) NOT NULL,
   `article_title` varchar(50) NOT NULL,
   `article_date` date NOT NULL,
-  `article_author` int(11) NOT NULL,
+  `article_author` varchar(30) NOT NULL,
   `article_content` varchar(2000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -43,56 +43,56 @@ CREATE TABLE `article` (
 --
 
 INSERT INTO `article` (`article_id`, `article_title`, `article_date`, `article_author`, `article_content`) VALUES
-(1, '6795', '2006-12-19', 8, 'Blabla'),
-(2, '1652', '2007-06-27', 0, 'Blabla'),
-(3, '5656', '2006-11-07', 0, 'Blabla'),
-(4, '4367', '2006-11-20', 0, 'Blabla'),
-(5, '1865', '2012-03-28', 0, 'Blabla'),
-(6, '4942', '2010-12-01', 0, 'Blabla'),
-(7, '3089', '2002-04-02', 0, 'Blabla'),
-(8, '177', '2005-01-09', 0, 'Blabla'),
-(9, '1139', '2014-03-13', 0, 'Blabla'),
-(10, '8372', '2006-12-06', 0, 'Blabla'),
-(11, '1774', '2003-08-21', 0, 'Blabla'),
-(12, '1347', '2002-07-15', 0, 'Blabla'),
-(13, '4320', '2010-04-04', 0, 'Blabla'),
-(14, '534', '2004-12-03', 0, 'Blabla'),
-(15, '3833', '2017-02-11', 0, 'Blabla'),
-(16, '9694', '2016-09-30', 0, 'Blabla'),
-(17, '2434', '2011-02-08', 0, 'Blabla'),
-(18, '788', '2011-08-04', 0, 'Blabla'),
-(19, '1267', '2003-06-30', 0, 'Blabla'),
-(20, '9070', '2003-08-18', 0, 'Blabla'),
-(21, '1418', '2010-02-01', 0, 'Blabla'),
-(22, '1020', '2004-09-28', 0, 'Blabla'),
-(23, '7495', '2009-08-17', 0, 'Blabla'),
-(24, '2687', '2011-10-07', 0, 'Blabla'),
-(25, '2953', '2011-01-05', 0, 'Blabla'),
-(26, '5162', '2014-08-18', 0, 'Blabla'),
-(27, '1104', '2012-10-31', 0, 'Blabla'),
-(28, '3640', '2007-07-01', 0, 'Blabla'),
-(29, '4444', '2005-07-12', 0, 'Blabla'),
-(30, '3575', '2014-04-30', 0, 'Blabla'),
-(31, '9006', '2006-07-27', 0, 'Blabla'),
-(32, '6205', '2015-01-11', 0, 'Blabla'),
-(33, '2231', '2009-07-20', 0, 'Blabla'),
-(34, '9156', '2007-08-24', 0, 'Blabla'),
-(35, '5097', '2002-07-27', 0, 'Blabla'),
-(36, '7023', '2010-04-02', 0, 'Blabla'),
-(37, '5678', '2008-05-06', 0, 'Blabla'),
-(38, '6726', '2013-05-14', 0, 'Blabla'),
-(39, '8969', '2010-12-17', 0, 'Blabla'),
-(40, '8906', '2008-02-07', 0, 'Blabla'),
-(41, '338', '2004-01-23', 0, 'Blabla'),
-(42, '2822', '2011-09-15', 0, 'Blabla'),
-(43, '5016', '2008-02-29', 0, 'Blabla'),
-(44, '4691', '2006-08-16', 0, 'Blabla'),
-(45, '4343', '2005-05-13', 0, 'Blabla'),
-(46, '5291', '2005-10-16', 0, 'Blabla'),
-(47, '1266', '2015-08-23', 0, 'Blabla'),
-(48, '1437', '2017-03-24', 0, 'Blabla'),
-(49, '6444', '2002-08-24', 0, 'Blabla'),
-(50, '6236', '2013-05-16', 0, 'Blabla');
+(1, '6795', '2006-12-19', 'Moi', 'Blabla'),
+(2, '1652', '2007-06-27', 'Moi', 'Blabla'),
+(3, '5656', '2006-11-07', 'Moi', 'Blabla'),
+(4, '4367', '2006-11-20', 'Moi', 'Blabla'),
+(5, '1865', '2012-03-28', 'Moi', 'Blabla'),
+(6, '4942', '2010-12-01', 'Moi', 'Blabla'),
+(7, '3089', '2002-04-02', 'Moi', 'Blabla'),
+(8, '177', '2005-01-09', 'Moi', 'Blabla'),
+(9, '1139', '2014-03-13', 'Moi', 'Blabla'),
+(10, '8372', '2006-12-06', 'Moi', 'Blabla'),
+(11, '1774', '2003-08-21', 'Moi', 'Blabla'),
+(12, '1347', '2002-07-15', 'Moi', 'Blabla'),
+(13, '4320', '2010-04-04', 'Moi', 'Blabla'),
+(14, '534', '2004-12-03', 'Moi', 'Blabla'),
+(15, '3833', '2017-02-11', 'Moi', 'Blabla'),
+(16, '9694', '2016-09-30', 'Moi', 'Blabla'),
+(17, '2434', '2011-02-08', 'Moi', 'Blabla'),
+(18, '788', '2011-08-04', 'Moi', 'Blabla'),
+(19, '1267', '2003-06-30', 'Moi', 'Blabla'),
+(20, '9070', '2003-08-18', 'Moi', 'Blabla'),
+(21, '1418', '2010-02-01', 'Moi', 'Blabla'),
+(22, '1020', '2004-09-28', 'Moi', 'Blabla'),
+(23, '7495', '2009-08-17', 'Moi', 'Blabla'),
+(24, '2687', '2011-10-07', 'Moi', 'Blabla'),
+(25, '2953', '2011-01-05', 'Moi', 'Blabla'),
+(26, '5162', '2014-08-18', 'Moi', 'Blabla'),
+(27, '1104', '2012-10-31', 'Moi', 'Blabla'),
+(28, '3640', '2007-07-01', 'Moi', 'Blabla'),
+(29, '4444', '2005-07-12', 'Moi', 'Blabla'),
+(30, '3575', '2014-04-30', 'Moi', 'Blabla'),
+(31, '9006', '2006-07-27', 'Moi', 'Blabla'),
+(32, '6205', '2015-01-11', 'Moi', 'Blabla'),
+(33, '2231', '2009-07-20', 'Moi', 'Blabla'),
+(34, '9156', '2007-08-24', 'Moi', 'Blabla'),
+(35, '5097', '2002-07-27', 'Moi', 'Blabla'),
+(36, '7023', '2010-04-02', 'Moi', 'Blabla'),
+(37, '5678', '2008-05-06', 'Moi', 'Blabla'),
+(38, '6726', '2013-05-14', 'Moi', 'Blabla'),
+(39, '8969', '2010-12-17', 'Moi', 'Blabla'),
+(40, '8906', '2008-02-07', 'Moi', 'Blabla'),
+(41, '338', '2004-01-23', 'Moi', 'Blabla'),
+(42, '2822', '2011-09-15', 'Moi', 'Blabla'),
+(43, '5016', '2008-02-29', 'Moi', 'Blabla'),
+(44, '4691', '2006-08-16', 'Moi', 'Blabla'),
+(45, '4343', '2005-05-13', 'Moi', 'Blabla'),
+(46, '5291', '2005-10-16', 'Moi', 'Blabla'),
+(47, '1266', '2015-08-23', 'Moi', 'Blabla'),
+(48, '1437', '2017-03-24', 'Moi', 'Blabla'),
+(49, '6444', '2002-08-24', 'Moi', 'Blabla'),
+(50, '6236', '2013-05-16', 'Moi', 'Blabla');
 
 -- --------------------------------------------------------
 
@@ -117,7 +117,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `user_ip`, `user_date`, `user_lastname`, `user_firstname`, `user_key`, `user_active`) VALUES
-(0, 'exemple@exemple.fr', '$2y$10$66kFP3/C.NU9Hk6nU6srue.5K8HY1Hmascp2gscG5Zt3FkRJXLLZO', '::1', '2018-11-05 00:00:00', 'Truc', 'Amandine', '', 0),
+(1, 'exemple@exemple.fr', '$2y$10$66kFP3/C.NU9Hk6nU6srue.5K8HY1Hmascp2gscG5Zt3FkRJXLLZO', '::1', '2018-11-05 00:00:00', 'Truc', 'Amandine', '', 0),
 (2, 'test3@test.com', '$2y$10$0S7geKGBzaWghYDONUV/g.Zvs58g7TtrtrKZauFQEXb746CetFtYG', '::1', '2018-11-05 00:00:00', 'Truc', 'getyhrhrt', '', 0),
 (3, 'test2@test.fr', '$2y$10$2obMoJHw5OAg/x8CKSu4COLs2wFnlzbDhZpL98FH23He3SLdBHuxi', '::1', '2018-11-05 11:41:42', 'gyrturujty', 'getyhrhrt', '', 0),
 (4, 'trucmachin@test.fr', '$2y$10$PKmXsDbF37WWnRRmIFawnOAeoT1N6a9E8hiSnLx4zCorYL3UzRU4i', '::1', '2018-11-05 11:53:47', 'gyrturujty', 'Amandine', '', 0),
@@ -138,8 +138,7 @@ INSERT INTO `user` (`user_id`, `user_email`, `user_password`, `user_ip`, `user_d
 -- Index pour la table `article`
 --
 ALTER TABLE `article`
-  ADD PRIMARY KEY (`article_id`),
-  ADD KEY `article_author` (`article_author`);
+  ADD PRIMARY KEY (`article_id`);
 
 --
 -- Index pour la table `user`
@@ -162,16 +161,6 @@ ALTER TABLE `article`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `article`
---
-ALTER TABLE `article`
-  ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`article_author`) REFERENCES `user` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
