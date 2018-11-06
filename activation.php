@@ -24,7 +24,7 @@ if(isset($_GET['account']) && isset($_GET['key'])){
         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         // Selection du compte (hypothétique) ayant déjà l'adresse email dans le formulaire
-        $verifyIfExist = $bdd->prepare('SELECT user_key, user_active, id FROM user WHERE user_email = ?');
+        $verifyIfExist = $bdd->prepare('SELECT user_key, user_active, user_id FROM user WHERE user_email = ?');
 
         $verifyIfExist->execute(array(
             $login
@@ -39,7 +39,7 @@ if(isset($_GET['account']) && isset($_GET['key'])){
             } else {
                 if($cle == $found[0]){
                     // mise à jour  / activation du  compte en BDD
-                    $response = $bdd->prepare('UPDATE user SET user_active = 1 WHERE id = ?');
+                    $response = $bdd->prepare('UPDATE user SET user_active = 1 WHERE user_id = ?');
                     $response->execute(array(
                         $found[2]
                     ));
@@ -65,15 +65,7 @@ if(isset($_GET['account']) && isset($_GET['key'])){
 ?>
 <!doctype html>
 <html lang="fr">
-  <head>
-    <title>Projet 2</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-  </head>
+    <?php include('head.php'); ?>
   <body>
     <?php include('header.php'); ?>
 

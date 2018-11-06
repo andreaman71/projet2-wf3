@@ -1,4 +1,5 @@
 <?php
+session_start();
 // On vérifie si GET['id'] existe et contient bien un numéro d'article valide
 if(!isset($_GET['id']) OR !preg_match('#^[1-9][0-9]{0,9}$#', $_GET['id'])){
     $errors[] = 'ID invalide';
@@ -9,7 +10,7 @@ if(!isset($errors)){
     require('bdd.php');
 
     // On récupère les infos de l'article demandé
-    $getArticle = $bdd->prepare('SELECT * FROM article WHERE id = ?');
+    $getArticle = $bdd->prepare('SELECT * FROM article WHERE article_id = ?');
     $getArticle->execute(array($_GET['id']));
     $article = $getArticle->fetch(PDO::FETCH_ASSOC);
     $getArticle->closeCursor();

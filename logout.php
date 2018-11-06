@@ -1,28 +1,27 @@
 <?php
-
 session_start();
-session_destroy();
-
-unset($_SESSION['email']);
-
 ?>
-
 <!doctype html>
 <html lang="fr">
-  <head>
-    <title>Projet 2</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-  </head>
+<head>
+  <?php include('head.php'); ?>
+</head>
   <body>
       <?php include('header.php'); ?>
 
       <main class="text-center pt-5">
-          <p>Vous êtes bien déconnecté.</p>
+          <?php 
+          if (isset($_SESSION['account'])) {
+          session_destroy();
+          unset($_SESSION['account']);?> 
+          <p>Vous êtes déconnecté.</p>
+          <?php }
+          else {
+          ?>
+          <p>Vous n'avez pas accès à cette page.</p>
+          <?php
+          }
+          ?>
       </main>
       
     <!-- Optional JavaScript -->

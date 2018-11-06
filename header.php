@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_SESSION['email'])) {
+if (isset($_SESSION['account'])) {
     ?>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

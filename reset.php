@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 if(isset($_POST['email'])){
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
         
@@ -10,15 +12,30 @@ if(isset($_POST['email'])){
         } catch(Exeption $e){
             die('Erreur de connexion à la bdd');
         }
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $response = $bdd->prepare('SELECT * FROM user WHERE user_email = ? ' );
+        $response = $bdd->prepare('SELECT user_id FROM user WHERE user_email = ? ' );
 
         $response->execute(array(
             $_POST['email']
         ));
 
-        if($response->rowCount() > 0){
+        $id = $response->fetch(PDO::FETCH_NUM);
+
+        if(!empty($id)) {
+
+            $response = $bdd->prepare('SELECT password_reset_key FROM user WHERE user_email = ? ');
+
+            $response->execute(array(
+                $_POST['email']
+            ));
+
+            $key = $response->fetch(PDO::FETCH_NUM);
+            
+            require('mail.php');
+
+            $response->closeCursor();
+
+            $success = 'Nous vous avons envoyer un mail de réinitialisation';
 
         } else{
         $errors[] = 'Cet email ne correspond à aucun compte';
@@ -29,7 +46,6 @@ if(isset($_POST['email'])){
 
 }
 
-session_start();
 
 ?>
 <!doctype html>
@@ -51,17 +67,20 @@ session_start();
             <div class="form-group">
                 <input name="email" type="email" class="form-control" placeholder="Votre mail">
             </div>
-<?php
+                <?php
 
-if(isset($errors)){
-    echo '<p style="color:red;">' .$errors[0]. '</p>';
-}
+                if(isset($errors)){
+                    echo '<p style="color:red;">' .$errors[0]. '</p>';
+                }
 
-?>
+                ?>
             <button type="submit" class="btn btn-primary">Réinitialiser</button>
-
-
         </form>
+        <?php
+        if (isset($success)) {
+            echo '<p style="color:green">' . $success . '</p>';
+        }
+        ?>
     </main>  
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
