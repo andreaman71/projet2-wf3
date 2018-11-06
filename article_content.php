@@ -10,7 +10,7 @@ if(!isset($errors)){
     require('bdd.php');
 
     // On récupère les infos de l'article demandé
-    $getArticle = $bdd->prepare('SELECT * FROM article WHERE article_id = ?');
+    $getArticle = $bdd->prepare('SELECT article.article_id ,article.article_title ,article.article_content, user.user_firstname, user.user_lastname, article.article_date FROM article INNER JOIN user on user.user_id=article.article_author WHERE article.article_id = ?');
     $getArticle->execute(array($_GET['id']));
     $article = $getArticle->fetch(PDO::FETCH_ASSOC);
     $getArticle->closeCursor();
@@ -20,8 +20,6 @@ if(!isset($errors)){
         $errors[] = 'Cet article n\'existe pas';
     }
 }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -52,7 +50,7 @@ if(!isset($errors)){
         <h1>Détail de l'article <strong><?php echo htmlspecialchars($article['article_title']); ?></strong> :</h1>
         <ul>
             <li>Contenu : <?php echo htmlspecialchars($article['article_content']); ?></li>
-            <li>Auteur : <?php echo htmlspecialchars($article['article_author']); ?></li>
+            <li>Auteur : <?php echo htmlspecialchars($article['user_firstname']) . ' ' . htmlspecialchars($article['user_lastname']); ?></li>
             <li>Date : <?php echo htmlspecialchars(date('d m Y', strtotime($article['article_date']))); ?></li>
         </ul>
         <?php
