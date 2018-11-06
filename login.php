@@ -51,10 +51,10 @@ if (isset($_POST['email']) &&
         
                 $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-                $response = $bdd->prepare('SELECT user_password FROM user WHERE user_email = ? ');
+                $response = $bdd->prepare('SELECT user_password and user_rank FROM user WHERE user_email = ? ');
         
                 $response->execute(array(
-                    $_POST['email'],
+                    $_POST['email']
                 ));
 
                 $hash = $response->fetch(PDO::FETCH_NUM);
@@ -63,7 +63,10 @@ if (isset($_POST['email']) &&
                 if (password_verify($_POST['password'], $hash[0])) {
                     $success = 'Vous etes connecté.';
 
-                    $_SESSION['email'] = $_POST['email'];
+                    $_SESSION['account'] = array(
+                        'email'=> $_POST['email'],
+                        'rank' => $hash[1],
+                    );
                 
                 } else {
                     $errors['password_user'] = 'Le mot de passe ne correspond pas avec l\'email';

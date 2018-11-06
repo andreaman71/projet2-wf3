@@ -49,9 +49,6 @@ if(isset($_POST['email'])){
 }
 
 
-
-session_start();
-
 ?>
 <!doctype html>
 <html lang="fr">

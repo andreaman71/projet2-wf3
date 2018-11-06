@@ -1,4 +1,5 @@
 <?php
+session_start();
 // On vérifie si GET['id'] existe et contient bien un numéro d'article valide
 if(!isset($_GET['id']) OR !preg_match('#^[1-9][0-9]{0,9}$#', $_GET['id'])){
     $errors[] = 'ID invalide';
@@ -35,10 +36,6 @@ if(!isset($errors)){
         .menu li{
             display:inline;
             margin:3px;
-        }
-
-        ul{
-            text-align: center;
         }
     </style>
 </head>
