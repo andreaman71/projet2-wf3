@@ -74,7 +74,7 @@ session_start();
                     if(empty($account)){
 
                         // Insertion du nouveau compte en BDD
-                        $response = $bdd->prepare('INSERT INTO user(user_email, user_password, user_ip, user_date, user_lastname, user_firstname, user_key) VALUES(?,?,?,?,?,?,?)');
+                        $response = $bdd->prepare('INSERT INTO user(user_email, user_password, user_ip, user_date, user_lastname, user_firstname, user_key, password_reset_key, user_rank) VALUES(?,?,?,?,?,?,?,?,?)');
 
                         // génération d'une clé unique sur 32 caractères en vue création token
                         $key = md5(rand().time().uniqid());
@@ -86,7 +86,9 @@ session_start();
                             date('Y-m-d H:i:s'), 
                             $_POST['lastname'], 
                             $_POST['firstname'],
-                            $key
+                            $key,
+                            $key,
+                            0
                         ));
 
                         
