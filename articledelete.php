@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 // On vérifie si GET['article_id'] existe et contient bien un numéro d'article
 if(isset($_GET['article_id'])) {
     $article_id = $_GET['article_id'];
