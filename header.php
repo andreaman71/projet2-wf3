@@ -21,6 +21,15 @@ if (isset($_SESSION['account'])){
             <li class="nav-item">
                 <a class="nav-link" href="logout.php">Déconnexion</a>
             </li>
+            <?php
+            if (isset($_SESSION['account']['user_rank']) == 1){
+            ?>
+            <li class="nav-item">
+            <a class="nav-link" href="admin.php">Administration</a>
+            </li>
+            <?php   
+            }
+            ?>
             </ul>
         </div>
     </nav>
