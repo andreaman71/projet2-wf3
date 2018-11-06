@@ -1,8 +1,8 @@
 <?php
 $mail = $_POST['email']; // destinataire du mail
 $crlf = "\r\n";
-$message_txt = "Pour réinitialiser votre mot de passe, merci de vous rendre sur ce lien http://localhost/reset2?key=" . $key . "";  // contenu du mail en texte simple
-$message_html = "<html>Pour réinitialiser votre mot de passe, merci de vous rendre sur ce lien http://localhost/reset2?key=" . $key . "</html>"; // contenu du mail en html
+$message_txt = "Pour réinitialiser votre mot de passe, merci de vous rendre sur ce lien http://localhost/projet2-wf3/reset2.php?key=" . $key . "";  // contenu du mail en texte simple
+$message_html = "<html>Pour réinitialiser votre mot de passe, merci de vous rendre sur ce lien http://localhost/projet2-wf3/reset2.php?key=" . $key . "</html>"; // contenu du mail en html
 $boundary = "-----=".md5(rand());
 $sujet = "Réinitialisation de mot de passe";   // sujet du mail
 $header = "From: \"Nom Prénom\"<moi@exemple.com>".$crlf;    // expediteur
