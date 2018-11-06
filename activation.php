@@ -65,15 +65,7 @@ if(isset($_GET['account']) && isset($_GET['key'])){
 ?>
 <!doctype html>
 <html lang="fr">
-  <head>
-    <title>Projet 2</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-  </head>
+    <?php include('head.php'); ?>
   <body>
     <?php include('header.php'); ?>
 
