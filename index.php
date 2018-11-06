@@ -5,7 +5,9 @@ session_start();
 ?>
 <!doctype html>
 <html lang="fr">
-  <?php include('head.php'); ?>
+<head>
+    <?php include('head.php'); ?>
+  </head>
   <body>
   <?php include('header.php'); ?>
       

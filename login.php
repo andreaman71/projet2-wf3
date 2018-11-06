@@ -9,8 +9,10 @@ require('recaptcha_valid.php');
 
 
 // Vérifier la présence des champs 
-if (isset($_POST['email']) && 
-    isset($_POST['password'])) {
+if (
+    isset($_POST['email']) && 
+    isset($_POST['password'])
+) {
 
     // Vérification des champs
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -38,41 +40,22 @@ if (isset($_POST['email']) &&
             $_POST['email']
         ));
 
+        $userInfos = $response->fetch(PDO::FETCH_ASSOC);
+
         $response->closeCursor();
 
             // Si mail ok, vérif password
-            if ($response->rowCount() > 0) {
-            
-                try {
-                    $bdd = new PDO('mysql:host=localhost;dbname=projet2;charset=utf8', 'root', '');
-                } catch(Exception $e){
-                    die('Erreur de connexion à la bdd');
-                }
+            if (!empty($userInfos)) {
         
-                $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-                $response = $bdd->prepare('SELECT user_password and user_rank FROM user WHERE user_email = ? ');
-        
-                $response->execute(array(
-                    $_POST['email']
-                ));
-
-                $hash = $response->fetch(PDO::FETCH_NUM);
-
                 // Si password ok, création session
-                if (password_verify($_POST['password'], $hash[0])) {
+                if (password_verify($_POST['password'], $userInfos['user_password'])) {
                     $success = 'Vous etes connecté.';
 
-                    $_SESSION['account'] = array(
-                        'email'=> $_POST['email'],
-                        'rank' => $hash[1],
-                    );
+                    $_SESSION['account'] = $userInfos;
                 
                 } else {
                     $errors['password_user'] = 'Le mot de passe ne correspond pas avec l\'email';
-                }
-                
-                            
+                }         
             
             } else {
                 $errors['email_user'] = 'Cet email ne correspond à aucun compte';
@@ -90,7 +73,9 @@ if (isset($_POST['email']) &&
 
 <!doctype html>
 <html lang="fr">
-<?php include('head.php'); ?>
+<head>
+    <?php include('head.php'); ?>
+  </head>
   <body>
     <?php include('header.php'); ?>
 
@@ -154,7 +139,9 @@ if (isset($_POST['email']) &&
 ?>
     <!doctype html>
     <html lang="fr">
+    <head>
     <?php include('head.php'); ?>
+  </head>
     <body>
         <?php include('header.php'); ?>
 

@@ -23,7 +23,9 @@ if (isset($_SESSION['email'])) {
 ?>
   <!doctype html>
   <html lang="fr">
-  <?php include('head.php'); ?>
+  <head>
+    <?php include('head.php'); ?>
+  </head>
     <body>
       <?php include('header.php'); ?>
 
@@ -63,7 +65,9 @@ if (isset($_SESSION['email'])) {
 ?>
   <!doctype html>
   <html lang="fr">
-  <?php include('head.php'); ?>
+  <head>
+    <?php include('head.php'); ?>
+  </head>
     <body>
       <?php include('header.php'); ?>
 
