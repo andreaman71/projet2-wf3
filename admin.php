@@ -45,8 +45,6 @@ session_start();
           </form>
           <div>
             <a class="btn btn-primary" href="articlecreate.php" role="button">Créer un article</a>
-            <a class="btn btn-primary" href="articleupdate.php" role="button">Mettre à jour un article</a>
-            <a class="btn btn-primary" href="articledelete.php" role="button">Supprimer un article</a>
           </div>
         <?php
           }

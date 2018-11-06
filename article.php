@@ -62,7 +62,11 @@ $pageMax = ceil($totalArticle/$articlePerPage);
         echo "<ul>";
         // Extraction de tous les articles avec un foreach
         foreach($articles as $article){
-            echo '<li><strong><a href="article_content.php?id='.htmlspecialchars($article['article_id']).'">'.htmlspecialchars($article['article_title']).'</a></strong> écrit par <strong>'. htmlspecialchars($article['article_author']) .'</strong></li>';
+            if (isset($_SESSION['account']) && $_SESSION['account']['user_rank'] == 1) {
+                echo '<li><strong><a href="article_content.php?id='.htmlspecialchars($article['article_id']).'">'.htmlspecialchars($article['article_title']).'</a></strong> écrit par <strong>'. htmlspecialchars($article['article_author']) .'</strong><a class="btn btn-primary ml-4 mt-2 btn-sm" href="articleupdate.php?article_id=' . htmlspecialchars($article['article_id']) . '&mode=D" role="button">Modifier</a><a class="btn btn-primary ml-2 mt-2 btn-sm" href="articledelete.php?article_id=' . htmlspecialchars($article['article_id']) . '" role="button">Supprimer</a></li>';
+            } else {
+                echo '<li><strong><a href="article_content.php?id='.htmlspecialchars($article['article_id']).'">'.htmlspecialchars($article['article_title']).'</a></strong> écrit par <strong>'. htmlspecialchars($article['article_author']) .'</strong></li>';
+            }
         }
         echo "</ul>";
     } else {

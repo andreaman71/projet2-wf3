@@ -141,6 +141,8 @@ if(
     }
     ?>
 
+    <p><a href="article.php">Retour à la liste des articles</a></p>
+
     </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

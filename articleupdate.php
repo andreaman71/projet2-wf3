@@ -175,9 +175,10 @@ if(!isset($errors)){
 }else{
     
     header('Location: http://localhost/projet2-wf3/article.php');
-
 }
     ?>
+
+    <p><a href="article.php">Retour à la liste des articles</a></p>
 
     </main>
     <!-- Optional JavaScript -->
