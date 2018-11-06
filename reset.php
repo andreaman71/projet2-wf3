@@ -12,13 +12,30 @@ if(isset($_POST['email'])){
         }
         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $response = $bdd->prepare('SELECT * FROM user WHERE user_email = ? ' );
+        $response = $bdd->prepare('SELECT id FROM user WHERE user_email = ? ' );
 
         $response->execute(array(
             $_POST['email']
         ));
 
+        $id = $response->fetch(PDO::FETCH_NUM);
+
         if($response->rowCount() > 0){
+
+            $key = md5(rand().time().uniqid());
+
+            $response = $bdd->prepare('UPDATE user SET password_reset_key = ? WHERE user_email = ?');
+
+            $response->execute(array(
+                $key,
+                $_POST['email']
+            ));
+            
+            require('mail.php');
+
+            $response->closeCursor();
+
+            $success = 'Nous vous avons envoyer un mail de réinitialisation';
 
         } else{
         $errors[] = 'Cet email ne correspond à aucun compte';
@@ -28,6 +45,8 @@ if(isset($_POST['email'])){
     
 
 }
+
+
 
 session_start();
 
@@ -51,17 +70,20 @@ session_start();
             <div class="form-group">
                 <input name="email" type="email" class="form-control" placeholder="Votre mail">
             </div>
-<?php
+                <?php
 
-if(isset($errors)){
-    echo '<p style="color:red;">' .$errors[0]. '</p>';
-}
+                if(isset($errors)){
+                    echo '<p style="color:red;">' .$errors[0]. '</p>';
+                }
 
-?>
+                ?>
             <button type="submit" class="btn btn-primary">Réinitialiser</button>
-
-
         </form>
+        <?php
+        if (isset($success)) {
+            echo '<p style="color:green">' . $success . '</p>';
+        }
+        ?>
     </main>  
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
