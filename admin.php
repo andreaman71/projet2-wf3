@@ -24,16 +24,17 @@ if($_SESSION['account']['user_rank'] == 1){
     ));
 
     $users = $response->fetch(PDO::FETCH_NUM);
-
-    $response->closeCursor();
+    if($response->rowCount() > 0){
+      $success = 'Nouvel administrateur créé !';
+  } else{
+    $errors[] = 'Problème lors de la création du compte administrateur !';
   }
-
+  $response->closeCursor();
+    
+  }
+    
 }
-
-
 if ($_SESSION['account']['user_rank'] == 0) {
-
-
 ?>
 
         <!doctype html>
@@ -62,7 +63,8 @@ if ($_SESSION['account']['user_rank'] == 0) {
   <?php include('header.php'); ?>
 
     <main class="text-center pt-5">
-  
+    <?php if(!isset($success)){
+    ?>
       <form method="POST" action="admin.php">
         <div class="form-group">
             <input name="email" type="email" class="form-control" placeholder="Admin">
@@ -74,6 +76,22 @@ if ($_SESSION['account']['user_rank'] == 0) {
 
       </form>
 
+      <a class="btn btn-primary" href="articlecreate.php" role="button">Créer un article</a>
+      <a class="btn btn-primary" href="articleupdate.php" role="button">Mettre à jour un article</a>
+      <a class="btn btn-primary" href="articledelete.php" role="button">Supprimer un article</a>
+
+  <?php 
+    }
+    if(isset($errors)){
+          foreach($errors as $error){
+              echo '<p style="color: red;">' . $error . '</p>'; 
+          }
+        }
+
+        if(isset($success)){
+            echo '<p style ="color: green">' . $success . '</p>';
+        }
+  ?>
     </main>    
 
 

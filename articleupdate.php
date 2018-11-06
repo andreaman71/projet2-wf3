@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+if($_SESSION['account']['user_rank'] == 1){
 // On vérifie si GET['article_id'] existe et contient bien un numéro d'article
 if(isset($_GET['article_id'])) {
     $article_id = $_GET['article_id'];
@@ -169,6 +172,11 @@ if(!isset($errors)){
     } else {
         echo '<p style="color:green;">' . $success . '</p>';
     }
+}else{
+    
+    header('Location: http://localhost/projet2-wf3/article.php');
+
+}
     ?>
 
     </main>

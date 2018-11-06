@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+if($_SESSION['account']['user_rank'] == 1){
 // Connexion à la BDD
 try{
     $bdd = new PDO('mysql:host=localhost;dbname=projet2;charset=utf8', 'root', '');
@@ -60,6 +63,10 @@ if(
             $errors['other'] = 'Erreur dans la bdd';
         }
     }
+}else{
+    
+    header('Location: http://localhost/projet2-wf3/article.php');
+
 }
 
 ?>
@@ -131,6 +138,7 @@ if(
     } else {
         echo '<p style="color:green;">' . $success . '</p>';
     }
+}
     ?>
 
     </main>
