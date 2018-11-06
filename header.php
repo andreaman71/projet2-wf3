@@ -12,10 +12,10 @@ if (isset($_SESSION['account'])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.php">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="article.php">Articles <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="article.php">Articles</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="profil.php">Profil</a>
@@ -41,10 +41,10 @@ if (isset($_SESSION['account'])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.php">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="article.php">Articles <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="article.php">Articles</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="inscription.php">S'inscrire</a>
