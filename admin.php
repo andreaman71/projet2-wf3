@@ -2,37 +2,40 @@
 
 session_start();
 
-if($_SESSION[''])
+if($_SESSION['account']['user_rank'] == 1){
+  
 
-if(isset($_POST['email'])){
-  if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-    $errors[] = 'Veuillez saisir un email valide';
-  }
 
-  try {
-    $bdd = new PDO('mysql:host=localhost;dbname=projet2;charset=utf8', 'root', '');
-  } catch(Exception $e){
-      die('Erreur de connexion à la bdd');
+  if(isset($_POST['email'])){
+    if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+      $errors[] = 'Veuillez saisir un email valide';
     }
 
-  $response = $bdd->prepare('SELECT user_email, user_firstname, user_lastname, user_date FROM user WHERE user_email = ? ');
+    try {
+      $bdd = new PDO('mysql:host=localhost;dbname=projet2;charset=utf8', 'root', '');
+    } catch(Exception $e){
+        die('Erreur de connexion à la bdd');
+      }
 
-  $response->execute(array(
-      $_SESSION['email'],
-  ));
+    $response = $bdd->prepare('UPDATE user SET user_rank = 1 WHERE user_email = ?');
 
-  $users = $response->fetch(PDO::FETCH_NUM);
+    $response->execute(array(
+        $_POST['email'],
+    ));
 
-  $response->closeCursor();
+    $users = $response->fetch(PDO::FETCH_NUM);
+
+    $response->closeCursor();
+  }
+
 }
 
 
+if ($_SESSION['account']['user_rank'] == 0) {
 
 
-if (isset($_SESSION['account'])) {
+?>
 
-    if ($_SESSION['rank'] == 1) {
-        ?>
         <!doctype html>
         <html lang="fr">
           <?php include('head.php'); ?>
@@ -47,8 +50,8 @@ if (isset($_SESSION['account'])) {
           </body>
         </html> 
 <?php
-    }
-} else {
+
+ } else {
 ?>
 <!doctype html>
 <html lang="fr">
