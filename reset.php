@@ -12,7 +12,6 @@ if(isset($_POST['email'])){
         } catch(Exeption $e){
             die('Erreur de connexion à la bdd');
         }
-        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $response = $bdd->prepare('SELECT user_id FROM user WHERE user_email = ? ' );
 
@@ -22,16 +21,15 @@ if(isset($_POST['email'])){
 
         $id = $response->fetch(PDO::FETCH_NUM);
 
-        if($response->rowCount() > 0){
+        if(!empty($id)) {
 
-            $key = md5(rand().time().uniqid());
-
-            $response = $bdd->prepare('UPDATE user SET password_reset_key = ? WHERE user_email = ?');
+            $response = $bdd->prepare('SELECT password_reset_key FROM user WHERE user_email = ? ');
 
             $response->execute(array(
-                $key,
                 $_POST['email']
             ));
+
+            $key = $response->fetch(PDO::FETCH_NUM);
             
             require('mail.php');
 
