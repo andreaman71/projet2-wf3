@@ -18,8 +18,11 @@ $offset = ($pageNumber - 1) * $articlePerPage;
 require('bdd.php');
 
 // On récupère les articles de la page demandée, selon la nombre d'article à afficher par page (LIMIT) et la page demandée (OFFSET)
-$getArticles = $bdd->prepare('SELECT * FROM article LIMIT :limit OFFSET :offset');
-// On utilise PDO::PARAM_INT en tant que 3eme paramètre de bindvalue pour forcer les 2 paramètres à être des entiers et non des chaînes de texte, sinon la requête plante.
+// $getArticles = $bdd->prepare('SELECT * FROM article LIMIT :limit OFFSET :offset');
+
+$getArticles = $bdd->prepare('SELECT article.article_id ,article.article_title ,article.article_content, user.user_firstname, user.user_lastname, article.article_date FROM article INNER JOIN user on user.user_id=article.article_author LIMIT :limit OFFSET :offset');
+
+// On utilise PDO::PARAM_INT en tant que 3eme paramètre de bindvalue pour forcer les 2 paramètres à être des entiers et non des chaînes de texte, sinon la requête plante
 $getArticles->bindValue(':limit', $articlePerPage, PDO::PARAM_INT);
 $getArticles->bindValue(':offset', $offset, PDO::PARAM_INT);
 $getArticles->execute();
@@ -59,16 +62,17 @@ $pageMax = ceil($totalArticle/$articlePerPage);
     
     // Si il y a des articles à afficher, on les affiche sinon on affiche un message d'erreur
     if(!empty($articles)){
-        echo "<ul>";
+        echo '<table class="mt-5 table">';
         // Extraction de tous les articles avec un foreach
         foreach($articles as $article){
+            echo '<tr><td><a href="article_content.php?id='.htmlspecialchars($article['article_id']).'">'.htmlspecialchars($article['article_title']).'</a></strong> écrit par <strong>'. htmlspecialchars($article['user_firstname']) . ' ' . htmlspecialchars($article['user_lastname']) .'</strong></td>';
+            // boutons en mode admin seulement
             if (isset($_SESSION['account']) && $_SESSION['account']['user_rank'] == 1) {
-                echo '<li><strong><a href="article_content.php?id='.htmlspecialchars($article['article_id']).'">'.htmlspecialchars($article['article_title']).'</a></strong> écrit par <strong>'. htmlspecialchars($article['article_author']) .'</strong><a class="btn btn-primary ml-4 mt-2 btn-sm" href="articleupdate.php?article_id=' . htmlspecialchars($article['article_id']) . '&mode=D" role="button">Modifier</a><a class="btn btn-primary ml-2 mt-2 btn-sm" href="articledelete.php?article_id=' . htmlspecialchars($article['article_id']) . '" role="button">Supprimer</a></li>';
-            } else {
-                echo '<li><strong><a href="article_content.php?id='.htmlspecialchars($article['article_id']).'">'.htmlspecialchars($article['article_title']).'</a></strong> écrit par <strong>'. htmlspecialchars($article['article_author']) .'</strong></li>';
+                echo '<td><a class="btn btn-primary ml-4 mt-2 btn-sm" href="articleupdate.php?article_id=' . htmlspecialchars($article['article_id']) . '&mode=D" role="button">Modifier</a><a class="btn btn-primary ml-2 mt-2 btn-sm" href="articledelete.php?article_id=' . htmlspecialchars($article['article_id']) . '" role="button">Supprimer</a></td>';
             }
+            echo '</tr>';
         }
-        echo "</ul>";
+        echo '</table>';
     } else {
         echo '<p style="color:red;">Pas d\'articles</p>';
     }
